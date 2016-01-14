@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="container well">
+                <a ng-href="#/itinerary/{{stay.field_trip_reference[0].target_id}}">
+      back
+    </a>
+                <h1>
+                  <a href="#" editable-text="stay.title[0].value" onaftersave="update()">{{ stay.title[0].value || "empty" }}</a>
+                </h1>
+                <div class="col-md-6">
+                    Travel Dates
+                    <h4>{{stay.field_date[0].value}}</h4>
+                    <h4>{{stay.field_end_date[0].value}}</h4>
+                </div>
+                <div class="col-md-6">
+                    <h4>Cost in CHF: {{stay.field_price[0].value}}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

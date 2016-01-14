@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="">
+        <ui-gmap-google-map center='map.center' zoom='map.zoom'>
+            <div ng-repeat="stay in stays">
+                <ui-gmap-marker coords='{latitude: stay.field_destination[0].lat, longitude: stay.field_destination[0].lng }' options="stayMapOptions" events="" click="getStayDetails()" idkey="$index">
+                </ui-gmap-marker>
+            </div>
+        </ui-gmap-google-map>
+    </div>
+    <hr>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="container well">
+                <div class="col-md-6">
+                    <h1>
+                  <a href="#" editable-text="itinerary.title[0].value" onaftersave="getLocation(itinerary.title[0].value)">{{ itinerary.title[0].value || "empty" }}</a>
+                </h1>
+                    <h3>
+                    <span class="label label-info">
+                      {{itinerary.field_date[0].value | date:'MMM'}}
+                      {{itinerary.field_date[0].value | date:'dd'}} -
+                      {{itinerary.field_end_date[0].value | date:'MMM'}}
+                      {{itinerary.field_end_date[0].value | date:'dd'}}
+                    </span>
+                </h3>
+                </div>
+                <div class="col-md-6">
+                    <h4>Total cost in CHF: {{getTotal()}}</h4>
+                    <div ng-if="allLocations.length">
+                        Matches from google maps
+                        <div ng-repeat="location in allLocations">
+                            {{location.formatted_address}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <hr>
+                    <div ng-repeat="stay in stays">
+                        <strong>
+                          <a class="" ng-href="/#/stay/details/{{stay.nid[0].value}}">
+                          {{stay.title[0].value}}
+                          </a>
+                        </strong> CHF {{stay.field_price[0].value}}
+                        <a class="pull-right" ng-click="deleteStay(stay.nid[0].value)"><span class="glyphicon glyphicon-remove"></span></a>
+                        <br> {{stay.field_date[0].value | date:'MMM'}} {{stay.field_date[0].value | date:'dd'}} to {{stay.field_end_date[0].value | date:'MMM'}} {{stay.field_date[0].value | date:'dd'}}
+                        <br> {{stay.field_destination[0].lat}}, {{stay.field_destination[0].lng}}
+                    </div>
+                    <a ng-show="!isReplyFormOpen" class="btn btn-success btn-xs" ng-click="isReplyFormOpen = !isReplyFormOpen">Add a stay</a>
+                    <a ng-show="isReplyFormOpen" class="btn btn-success btn-xs" ng-click="isReplyFormOpen = !isReplyFormOpen">Hide form</a>
+                </div>
+            </div>
+            <div class="container well" ng-init="isReplyFormOpen = false" ng-show="isReplyFormOpen">
+                <form class="" ng-submit="insertStay()">
+                    <label for="StayNAme">Name of the Hotel or place you are staying</label>
+                    <div class="form-group form-inline">
+                        <input type="text" ng-model="place" ng-change="getLocation(place)" class="form-control" id="stay" placeholder="Stay: Hotel / Place" style="width: 100%">
+                    </div>
+                    <div class="form-group form-inline">
+                        <label for="price">Price</label>
+                        <input type="text" ng-model="price" class="form-control" id="price" placeholder="price">
+                    </div>
+                    <div class="form-group form-inline">
+                        <label for="dateStart">Start Date</label>
+                        <input type="date" name="dateStart" ng-model="dateStart" ng-change="dateEnd = dateStart" class="form-control" id="destination">
+                        <label for="dateEnd">End Date</label>
+                        <input type="date" name="dateEnd" ng-model="dateEnd" class="form-control" id="destination">
+                        <button type="submit" class="btn btn-success">Add Stay</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="alert alert-info small" role="alert"><small>Coordinates: {{itinerary.field_destination[0].lat}} | {{itinerary.field_destination[0].lng}}</small>
+</div>

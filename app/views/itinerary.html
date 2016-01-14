@@ -1,0 +1,40 @@
+
+<div class="container">
+  <form class="well" ng-submit="insertIntinerary()">
+
+              <label for="exampleInputEmail1">Name or destination for your next trip</label>
+
+      <div class="form-group form-inline" >
+          <input type="text" ng-model="text" ng-change="getLocation(text)" class="form-control" id="destination" placeholder="Destination" style="width: 100%">
+      </div>
+                <div class="form-group form-inline">
+          <label for="dateStart">Start Date</label>
+          <input type="date" name="dateStart" ng-model="dateStart" ng-change="dateEnd = dateStart" class="form-control" id="destination">
+          <label for="dateEnd">End Date</label>
+          <input type="date" name="dateEnd" ng-model="dateEnd" class="form-control" id="destination">
+                    <button type="submit" class="btn btn-success">Add Destination</button>
+
+      </div>
+  </form>
+  <div ng-hide="!itineraries.length" class="panel panel-default">
+      <div class="panel-heading">
+          <h3 class="panel-title">Your trips</h3>
+      </div>
+      <div class="panel-body" ng-repeat="itinerary in itineraries">
+          <h4 class="media-heading">
+                  <a class="" ng-href="/#/itinerary/{{itinerary.nid[0].value}}">
+                  {{itinerary.title[0].value}}
+                  </a>
+            <span class="label label-info">
+              {{itinerary.field_date[0].value | date:'MMM'}}
+              {{itinerary.field_date[0].value | date:'dd'}} -
+              {{itinerary.field_end_date[0].value | date:'MMM'}}
+              {{itinerary.field_end_date[0].value | date:'dd'}}
+            </span>
+                    <a class="pull-right" ng-click="deleteIntinerary(itinerary.nid[0].value)"><span class="glyphicon glyphicon-remove"></span></a>
+          <hr>
+
+          </h4>
+      </div>
+  </div>
+</div>
