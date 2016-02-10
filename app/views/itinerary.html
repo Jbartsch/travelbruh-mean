@@ -4,38 +4,46 @@
         <form class="" ng-submit="insertIntinerary()">
             <label for="exampleInputEmail1">Name or destination for your next trip</label>
             <div class="form-group form-inline">
-                <input type="text" ng-model="text" ng-change="getLocation(text)" class="form-control" id="destination" placeholder="Destination" style="width: 100%">
+                <input type="text" class="form-control" gm-places-autocomplete ng-model="text" placeholder="Destination" style="width: 100%" required >
             </div>
             <div class="form-group form-inline">
                 <label for="dateStart">Start Date</label>
-                <input type="date" name="dateStart" ng-model="dateStart" ng-change="dateEnd = dateStart" class="form-control" id="destination">
+                <input type="date" name="dateStart" ng-model="dateStart" ng-change="dateEnd = dateStart" class="form-control" id="destination" required>
                 <label for="dateEnd">End Date</label>
-                <input type="date" name="dateEnd" ng-model="dateEnd" class="form-control" id="destination">
+                <input type="date" name="dateEnd" ng-model="dateEnd" class="form-control" id="destination" required>
                 <button type="submit" class="btn btn-success">Add Destination</button>
             </div>
         </form>
     </div>
 </div>
 <div class="container card">
-    <div ng-hide="!itineraries.length" class="panel panel-default">
-        <div>
-            <h3>Your trips</h3>
+    <div ng-hide="!itineraries.length" class="listview">
+        <div class="lv-header">
+            <i class="zmdi zmdi-airplane zmdi-hc-fw"></i>Your trips
         </div>
-        <div class="panel-body" ng-repeat="itinerary in itineraries">
-            <h4 class="media-heading">
-                  <a class="" ng-href="/#/itinerary/{{itinerary.nid[0].value}}">
-                  {{itinerary.title[0].value}}
-                  </a>
-            <span class="label label-info">
-              {{itinerary.field_date[0].value | date:'MMM'}}
-              {{itinerary.field_date[0].value | date:'dd'}} -
-              {{itinerary.field_end_date[0].value | date:'MMM'}}
-              {{itinerary.field_end_date[0].value | date:'dd'}}
-            </span>
-                    <a class="pull-right" ng-click="deleteIntinerary(itinerary.nid[0].value)"><span class="glyphicon glyphicon-remove"></span></a>
-          <hr>
-
-          </h4>
+        <div class="lv-body" ng-repeat="itinerary in itineraries">
+            <a class="lv-item" ng-href="/#/itinerary/{{itinerary.nid[0].value}}">
+                <div class="media">
+                    <div class="pull-left">
+                        <i class="zmdi zmdi-pin zmdi-hc-fw lead"></i>
+                    </div>
+                    <div class="media-body">
+                        <div class="lv-title"> {{itinerary.title[0].value}}
+                        </div>
+                          <small class="lv-small">
+                            <span class="label label-info">
+                              {{itinerary.field_date[0].value | date:'MMM'}}
+                              {{itinerary.field_date[0].value | date:'dd'}} -
+                              {{itinerary.field_end_date[0].value | date:'MMM'}}
+                              {{itinerary.field_end_date[0].value | date:'dd'}}
+                            </span>
+                          </small>
+                        </div>
+                </div>
+                <!-- <a class="pull-right" ng-click="deleteIntinerary(itinerary.nid[0].value)"><i class="zmdi zmdi-airplane-off zmdi-hc-fw"></i></a> -->
+            </a>
         </div>
+        <div class="clearfix"></div>
+        <span class="lv-footer" href=""></span>
     </div>
 </div>

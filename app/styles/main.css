@@ -1,3 +1,18 @@
+.ng-enter {
+  transition: 1.00s;
+  opacity: 0;
+}
+.ng-enter-active {
+  opacity: 1;
+}
+.ng-leave {
+  transition: 0.75s;
+  opacity: 1;
+}
+.ng-leave-active {
+  opacity: 0;
+}
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -19,8 +34,8 @@ body {
 
 /* Custom page header */
 .header {
-  border-bottom: 1px solid #e5e5e5;
-  margin-bottom: 10px;
+/*  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 10px;*/
 }
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
@@ -34,6 +49,7 @@ body {
     min-height: 50px;
     margin-bottom: 0px;
     border: 1px solid transparent;
+    margin-bottom: 0 !important;
 }
 
 /* Custom page footer */
