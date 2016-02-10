@@ -17,7 +17,8 @@ angular
         'ngSanitize',
         'ngTouch',
         'uiGmapgoogle-maps',
-        'xeditable'
+        'xeditable',
+        'gm'
     ])
     .config(function($routeProvider) {
         $routeProvider
@@ -41,9 +42,17 @@ angular
                 templateUrl: 'views/login.html',
                 controller: 'LoginCtrl'
             })
+            .when('/register', {
+                templateUrl: 'views/register.html',
+                controller: 'RegisterCtrl'
+            })
+            .when('/user', {
+                controller: 'UserCtrl',
+                templateUrl: 'views/user.html',
+            })
             .when('/stay/details/:itineraryId', {
-              templateUrl: 'views/staydetails.html',
-              controller: 'StaydetailsCtrl'
+                templateUrl: 'views/staydetails.html',
+                controller: 'StaydetailsCtrl'
             })
             .otherwise({
                 redirectTo: '/itinerary'
@@ -54,8 +63,30 @@ angular
             'Content-Type': 'application/hal+json;charset=utf-8'
         }
     }])
+    .config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
+        $httpProvider.defaults.withCredentials = true;
+    }])
+    // .run(['$http', '$cookies', function($http, $cookies) {
+    //     $http.defaults.headers.post['X-CSRF-Token'] = $cookies.csrftoken;
+    // }])
+
+
+
+.run(function($rootScope, $location, $cookies, $window) {
+        $rootScope.$on("$routeChangeStart", function(event, next, current) {
+            $rootScope.loggedIn = $cookies.get('loggedIn');
+
+            if ($rootScope.loggedIn == null) {
+                // no logged user, redirect to /login
+                if (next.templateUrl === "views/login.html") {} else {
+                    $location.path("/login");
+                }
+            }
+        });
+    })
     .run(function($rootScope) {
-        $rootScope.baseUrl = 'http://travelbruh.localhost';
+        $rootScope.baseUrl = 'http://api.travel-bruh.com';
+        $rootScope.reload = true;
     })
     .run(function(editableOptions) {
         editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
