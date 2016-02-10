@@ -85,7 +85,7 @@ angular
         });
     })
     .run(function($rootScope) {
-        $rootScope.baseUrl = 'http://travelbruh.localhost';
+        $rootScope.baseUrl = 'http://api.travel-bruh.com';
         $rootScope.reload = true;
     })
     .run(function(editableOptions) {

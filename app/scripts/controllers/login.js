@@ -32,7 +32,7 @@ angular.module('travelBruhClientApp')
                     $http({
                         method: 'POST',
                         withCredentials: true,
-                        url: 'http://travelbruh.localhost/api/v2/user/logout',
+                        url: $rootScope.baseUrl + '/api/v2/user/logout',
                         headers: {
                             "content-type": "application/json",
                             "accept": "application/json",

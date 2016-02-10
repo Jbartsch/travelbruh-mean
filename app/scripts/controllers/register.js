@@ -10,7 +10,7 @@
 angular.module('travelBruhClientApp')
     .controller('RegisterCtrl', function($scope, $rootScope, $sce) {
         $scope.content = {
-            src: "http://travelbruh.localhost/",
+            src: $rootScope.baseUrl,
             title: "Register"
         };
         $scope.trustSrc = function(src) {

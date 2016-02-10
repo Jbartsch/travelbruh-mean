@@ -23,15 +23,13 @@ angular.module('travelBruhClientApp')
                         "username": name,
                         "password": pass
                     },
-                    url: 'http://travelbruh.localhost/api/v2/user/login',
+                    url: $rootScope.baseUrl + '/api/v2/user/login',
                     headers: {
                         "content-type": "application/json",
                         "accept": "application/json"
                     }
                 });
             }
-
-            // http://travelbruh.localhost/user/login?name=admin&pass=password&form_build_id=form-7BpSIJATth9GdTaUmaqUJK5oUX8De2n6JZ8Xw_tXLVc&form_id=user_login_form&op=Log+in
             return loginService;
         }
     ]);
